@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;1,300;1,500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+    crossorigin="anonymous" />
+  <title>Udemy</title>
+</head>
+<body>
+
+  <!-- apertura main wrapper -->
+  <div class="main_wrapper">
+
+    <!-- apertura head -->
+    <head>
+
+      <!-- apertura nav -->
+      <nav>
+
+        <!-- navtop -->
+        <navtop></navtop>
+        <hr>
+
+        <!-- navmiddle -->
+        <navmiddle></navmiddle>
+
+        <!-- navbottom -->
+        <navbottom></navbottom>
+
+      </nav>
+      <!-- chiusura nav -->
+
+      <!-- apertura jumbotron -->
+      <div class="jumbotron">
+
+      </div>
+      <!-- chiusura jumbotron -->
+
+    </head>
+    <!-- chiusura head -->
+
+    <!-- apertura main -->
+    <main>
+
+      <div class="container">
+        <!-- apertura pop_development_courses -->
+        <div class="pop_development_courses">
+          <h2>Popular Development Courses</h2>
+          <!-- apertura course box -->
+          <div class="course_box d-flex">
+            <!-- apertura course card -->
+            <div class="course_card" v-for="(course, index) in popCourses" v-if="index < 6  && course.type === 'Development'">
+              <img :src="`${course.poster}`" alt="">
+              <div class="course_card_info">
+                <p>{{course.type}} ></p>
+                <h5>{{course.name}}</h5>
+                <hr>
+                <div class="course_card_info_vote">
+                  <i class="fas fa-star" v-for="star in course.votein5"></i><i class="far fa-star" v-for="star in (5 - course.votein5)"></i>
+                </div>
+                <div class="course_card_info_price">
+                  <p id="initial_price">€{{course.initial_price}}</p>
+                  <p><strong>€{{course.new_price}}</strong> </p>
+                </div>
+              </div>
+            </div>
+            <!-- chiusura course card -->
+          </div>
+          <!-- chiusrua course box -->
+        </div>
+        <!-- chiusura pop_development_courses -->
+      </div>
+
+      <!-- apertura limitless jumbotron -->
+      <section class="limitless_jumbotron d-flex">
+        <div class="limitless_info">
+          <h1>Limitless learning, more possibilities</h1>
+          <p>Online courses open the opportunity for learning to almost anyone, regardless of their scheduling commitments</p>
+          <a href="#" class="btn_base"> READ MORE</a>
+        </div>
+      </section>
+      <!-- chiusura limitless jumbotron -->
+
+      <!-- apertura section recent_courses -->
+      <section class="recent_courses">
+        <h1>Recent courses</h1>
+        <!-- apertura lista type_courses -->
+        <ul class="type_courses d-flex">
+          <li v-for="type in courseTypes" @click="filterByType(type)">{{type}}</li>
+        </ul>
+        <!-- chiusura lista type_courses -->
+
+        <div class="container">
+          <!-- apertura course box -->
+          <div class="course_box d-flex">
+            <!-- apertura course card -->
+            <div class="course_card" v-for="(course, index) in courseArray" v-if="course.visible">
+              <img :src="`${course.poster}`" alt="">
+              <div class="course_card_info">
+                <p>{{course.type}} ></p>
+                <h5>{{course.name}}</h5>
+                <hr>
+                <div class="course_card_info_vote">
+                  <i class="fas fa-star" v-for="star in course.votein5"></i><i class="far fa-star"
+                    v-for="star in (5 - course.votein5)"></i>
+                </div>
+                <div class="course_card_info_price">
+                  <p id="initial_price">€{{course.initial_price}}</p>
+                  <p><strong>€{{course.new_price}}</strong> </p>
+                </div>
+              </div>
+            </div>
+            <!-- chiusura course card -->
+
+            <div class="buttons_course d-flex">
+              <input type="button" value="SHOW ALL" class="btn_base" @click="showOtherCourses()">
+              <input type="button" value="REDUCE ALL" class="btn_base" @click="reduceOtherCourses()">
+            </div>
+            
+          </div>
+          <!-- chiusrua course box -->
+        </div>
+        
+      </section>
+      <!-- chiusura section recent_courses -->
+
+      <!-- apertura section newsletter -->
+      <section class="newsletter d-flex">
+        <div class="newsletter_info">
+          <h3>Subscribe our newsletter</h3>
+          <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
+        </div>
+        <div class="newsletter_form">
+          <h3>YOUR EMAIL ADDRESS</h3>
+          <input type="email" placeholder="Enter your email"><input type="submit" value="SUBSCRIBE">
+        </div>
+      </section>
+      <!-- chiusura section newsletter -->
+
+      <!-- apertura popular_courses -->
+      <section class="popular_courses">
+        <h1>Popular Courses</h1>
+        <p>Discover our most popular courses for self learning</p>
+
+        <div class="container">
+          <!-- apertura course box -->
+          <div class="course_box">
+            <!-- apertura course card -->
+            <div class="course_card" v-for="(course, index) in popCourses">
+              <img :src="`${course.poster}`" alt="">
+              <div class="course_card_info">
+                <p>{{course.type}} ></p>
+                <h5>{{course.name}}</h5>
+                <hr>
+                <div class="course_card_info_vote">
+                  <i class="fas fa-star" v-for="star in course.votein5"></i><i class="far fa-star"
+                    v-for="star in (5 - course.votein5)"></i>
+                </div>
+                <div class="course_card_info_price">
+                  <p id="initial_price">€{{course.initial_price}}</p>
+                  <p><strong>€{{course.new_price}}</strong> </p>
+                </div>
+              </div>
+            </div>
+            <!-- chiusura course card -->
+        
+          </div>
+          <!-- chiusrua course box -->
+
+          <div class="arrow_buttons_carousel d-flex">
+            <i class="far fa-caret-square-left" id="prev"></i>
+            <i class="far fa-caret-square-right" id="next"></i>
+          </div>
+        </div>
+      </section>
+      <!-- chiusura popular_courses -->
+
+      <!-- apertura istructor_business -->
+      <section class="instructor_business">
+        <div class="container d-flex">
+          <div class="instructor d-flex">
+            <img src="assets/img/pcfisso.png" alt="">
+            <div class="instructor_info">
+              <h1>Become an Instructor</h1>
+              <p>Teach what you love. Masterstudy gives you the tools to create a course.</p>
+              <span class="btn_base">START TEACHING</span>
+            </div>
+          </div>
+
+          <div class="access_business d-flex">
+            <img src="assets/img/pcfisso.png" alt="">
+            <div class="access_business_info">
+              <h1>Access for Business</h1>
+              <p>Get unlimited access to 2,500 of top courses for your team.</p>
+              <span class="btn_base">DOING BUSINESS</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- chiusura istructor_business -->
+
+      <!-- apertura section investing_future -->
+      <section class="investing_future d-flex">
+        <div class="investing_info">
+          <h1>Investing for Your Future</h1>
+          <p>It is no exaggeration to say this MasterStudy experience was transformative–both professionally and personally. This
+          workshop will long remain a high point of my life. Thanks again…. I am feeling energized and eager to start teaching my
+          class next week. I can’t wait to use all of my new teaching tools. I will absolutely recommend this workshop to other
+          educators!</p>
+          <strong>Linda Green</strong>
+          <p>Product Manager, Apple Inc</p>
+        </div>
+      </section>
+      <!-- chiusura section investing_future -->
+    </main>
+    <!-- chiusura main -->
+
+    <!-- apertura footer -->
+    <footer>
+      <footer_top></footer_top>
+      <hr>
+      <footer_bottom></footer_bottom>
+    </footer>
+    <!-- chiusura footer -->
+
+  </div>
+  <!-- chiusura main wrapper -->
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
